@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Critique — Project Requirements Document (PRD)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fcfbf9;
+      --bg-wash: #f5f2ec;
+      --bg-card: #ffffff;
+      --ink: #161413;
+      --ink2: #524c45;
+      --ink3: #7d756c;
+      --rule: #dfd9cf;
+      --rule2: #eae5dc;
+      --accent: #8b2515;
+      --accent-soft: #f8edea;
+      --green: #235332;
+      --green-soft: #eaf3ed;
+      --amber: #875c00;
+      --amber-soft: #fcf6e8;
+      
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+      --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      
+      --page-max: 1060px;
+      --text-max: 76ch;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 28px 96px 28px;
+    }
+
+    /* Navigation */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(252, 251, 249, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      padding: 12px 0;
+      margin-bottom: 16px;
+    }
+    .nav-inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      text-decoration: none;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* Masthead */
+    header.masthead {
+      border-bottom: 2px solid var(--ink);
+      padding: 48px 0 28px 0;
+      margin-bottom: 40px;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px 0;
+      font-weight: 500;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin: 0 0 18px 0;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .dek {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--ink2);
+      margin: 0 0 28px 0;
+      max-width: var(--text-max);
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink3);
+    }
+    .meta-bar b {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* Table of Contents */
+    nav.toc {
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 0 32px 0;
+      margin-bottom: 24px;
+    }
+    nav.toc h2 {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 0 0 16px 0;
+      font-weight: 500;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 6px 32px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .toc-grid a {
+      display: flex;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 14.5px;
+      padding: 4px 0;
+    }
+    .toc-grid a:hover {
+      color: var(--accent);
+    }
+    .toc-grid .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      min-width: 22px;
+    }
+
+    /* Sections */
+    section {
+      padding-top: 52px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--rule2);
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+    .shead {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+    .snum {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+      min-width: 32px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--ink);
+    }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      margin: 36px 0 14px 0;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 18px 0;
+      max-width: var(--text-max);
+      color: var(--ink);
+    }
+    p.lead {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.58;
+      color: var(--ink);
+      margin-bottom: 24px;
+      max-width: var(--text-max);
+    }
+    ul, ol {
+      max-width: var(--text-max);
+      margin: 0 0 20px 0;
+      padding-left: 22px;
+    }
+    li { margin-bottom: 8px; }
+    strong { font-weight: 600; color: var(--ink); }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.88em;
+      background-color: var(--bg-wash);
+      padding: 1.5px 5px;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+
+    /* Tables */
+    .table-scroller {
+      overflow-x: auto;
+      margin: 28px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+      min-width: 640px;
+    }
+    table.data-table th {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      font-weight: 500;
+      padding: 12px 16px 12px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+      vertical-align: bottom;
+    }
+    table.data-table td {
+      padding: 11px 16px 11px 0;
+      border-bottom: 1px solid var(--rule2);
+      vertical-align: top;
+      color: var(--ink);
+    }
+    table.data-table tr:last-child td { border-bottom: none; }
+    table.data-table th:last-child,
+    table.data-table td:last-child { padding-right: 0; }
+    .num {
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    th.num { text-align: right; }
+    .bad { color: var(--accent); font-weight: 600; }
+    .good { color: var(--green); font-weight: 600; }
+    .warn { color: var(--amber); font-weight: 600; }
+
+    /* Pullquote & Callout */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 6px 0 6px 24px;
+      margin: 32px 0;
+      max-width: var(--text-max);
+    }
+    .pullquote p {
+      font-family: var(--serif);
+      font-size: 1.24rem;
+      line-height: 1.48;
+      font-style: italic;
+      color: var(--ink);
+      margin: 0;
+    }
+    .callout-box {
+      border: 1px solid var(--rule);
+      background-color: var(--bg-card);
+      padding: 22px 26px;
+      margin: 28px 0;
+      max-width: var(--text-max);
+    }
+    .callout-box.accented {
+      border-left: 3px solid var(--accent);
+      background-color: var(--bg-wash);
+    }
+    .callout-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 0 10px 0;
+    }
+
+    /* Diagrams */
+    figure.diagram-card {
+      margin: 36px 0;
+      padding: 0;
+    }
+    .diagram-frame {
+      border: 1px solid var(--rule);
+      background-color: var(--bg-card);
+      padding: 28px 24px;
+      overflow-x: auto;
+    }
+    .diagram-frame svg {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+    figcaption {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    figcaption b {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    /* KPI strip */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      margin: 32px 0;
+    }
+    .kpi-cell {
+      padding: 20px 20px 20px 0;
+      border-right: 1px solid var(--rule2);
+    }
+    .kpi-cell:last-child { border-right: none; }
+    .kpi-val {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 500;
+      line-height: 1;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .kpi-val.alert { color: var(--accent); }
+    .kpi-lbl {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--ink2);
+      display: block;
+    }
+
+    /* Footer */
+    footer.dossier-footer {
+      border-top: 2px solid var(--ink);
+      padding-top: 28px;
+      margin-top: 64px;
+      font-size: 13px;
+      color: var(--ink3);
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding-inline: 18px; }
+      .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .meta-bar { gap: 10px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Campus Critique · Engineering Dossier</a>
+      <ul class="nav-links">
+        <li><a href="prd.html" class="active">PRD</a></li>
+        <li><a href="trd.html">TRD</a></li>
+        <li><a href="report.html">Executive Report</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Masthead -->
+    <header class="masthead">
+      <p class="eyebrow">Project Requirements Document (PRD) · Academic Submission Baseline</p>
+      <h1>Autonomous WhatsApp Decision Infrastructure for Engineering Aspirants</h1>
+      <p class="dek">A counseling agent for the ~13 lakh students annually excluded from JoSAA seats, built with structural operational disinterest so that it can advise a family against spending ₹20 lakh.</p>
+      
+      <div class="meta-bar">
+        <span><b>Document Version:</b> 2.0 (Defense Baseline)</span>
+        <span><b>Target Deployment:</b> June 2027 Cycle</span>
+        <span><b>Team:</b> 3 Engineers</span>
+        <span><b>Author:</b> Campus Critique Core Team</span>
+      </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h2>Document Contents</h2>
+      <ol class="toc-grid">
+        <li><a href="#s1"><span class="num">01</span><span>Macro Admission Funnel</span></a></li>
+        <li><a href="#s2"><span class="num">02</span><span>8 New-Age Colleges Audit</span></a></li>
+        <li><a href="#s3"><span class="num">03</span><span>Competitive Differentiation</span></a></li>
+        <li><a href="#s4"><span class="num">04</span><span>Core Thesis &amp; Decision D1</span></a></li>
+        <li><a href="#s5"><span class="num">05</span><span>User Personas &amp; Psychology</span></a></li>
+        <li><a href="#s6"><span class="num">06</span><span>The 7-Stage Conversational Model</span></a></li>
+        <li><a href="#s7"><span class="num">07</span><span>MoSCoW Requirements Matrix</span></a></li>
+        <li><a href="#s8"><span class="num">08</span><span>Messaging UI/UX &amp; WhatsApp Rules</span></a></li>
+        <li><a href="#s9"><span class="num">09</span><span>Transcript-Derived KPI Framework</span></a></li>
+        <li><a href="#s10"><span class="num">10</span><span>Ethics, Safety &amp; Tele-MANAS</span></a></li>
+        <li><a href="#s11"><span class="num">11</span><span>Roadmap &amp; Delivery Milestones</span></a></li>
+        <li><a href="#s12"><span class="num">12</span><span>Faculty Traceability &amp; Status Boundary</span></a></li>
+      </ol>
+    </nav>
+
+    <!-- SECTION 01: MACRO FUNNEL -->
+    <section id="s1">
+      <div class="shead"><span class="snum">01</span><h2>The Macro Admission Funnel</h2></div>
+      <p class="lead">Every June, approximately thirteen to fifteen lakh Indian engineering aspirants face a high-consequence financial commitment within an intense four-to-six-week counseling window, advised almost exclusively by agents with an explicit commercial interest in their enrollment.</p>
+
+      <div class="kpi-strip">
+        <div class="kpi-cell">
+          <span class="kpi-val">~14.5L</span>
+          <span class="kpi-lbl">JEE Main Registrations</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-val">67,323</span>
+          <span class="kpi-lbl">Total JoSAA Public Seats</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-val alert">~95%</span>
+          <span class="kpi-lbl">Excluded from JoSAA (~13L)</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-val">20–30%</span>
+          <span class="kpi-lbl">Dropper Rank Improvement</span>
+        </div>
+      </div>
+
+      <p>The Joint Seat Allocation Authority (JoSAA) allocates seats across 23 IITs, 31 NITs, 26 IIITs, and 56 GFTIs. The structural gap between candidate volume and subsidized public capacity produces an addressable cohort of over 1.3 million unplaced candidates annually. For this demographic, private technical education represents an opaque and predatory marketplace.</p>
+    </section>
+
+    <!-- SECTION 02: 8 COLLEGES AUDIT -->
+    <section id="s2">
+      <div class="shead"><span class="snum">02</span><h2>The Eight New-Age Tech Colleges We Track</h2></div>
+      <p>Over the past four years, an emerging tier of venture-backed software training institutes has entered the undergraduate marketplace. These institutes market modern software pedagogy and placement claims, charging tuition comparable to or exceeding premier private universities.</p>
+
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>College Name</th>
+              <th class="num">Est.</th>
+              <th class="num">Fees (4 Year Total)</th>
+              <th class="num">Batch</th>
+              <th>Audited Outcome History</th>
+              <th>Degree Awarding Vehicle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Newton School (ADYPU)</strong></td>
+              <td class="num">2024</td>
+              <td class="num">₹17.5L – ₹26.9L</td>
+              <td class="num">~100</td>
+              <td>Early signals; internships only</td>
+              <td>Ajeenkya DY Patil University (ADYPU)</td>
+            </tr>
+            <tr>
+              <td><strong>Newton School (Rishihood)</strong></td>
+              <td class="num">2023</td>
+              <td class="num">₹17.5L – ₹26.9L</td>
+              <td class="num">~120</td>
+              <td>Internships verified; full batch graduating</td>
+              <td>Rishihood University</td>
+            </tr>
+            <tr>
+              <td><strong>Scaler School of Tech (SST)</strong></td>
+              <td class="num">2023</td>
+              <td class="num">₹17.0L – ₹24.5L</td>
+              <td class="num">~60–80</td>
+              <td>96.3% verified tech internships</td>
+              <td class="warn">Separate partner HEI (Verify accreditation)</td>
+            </tr>
+            <tr>
+              <td><strong>Vedam</strong></td>
+              <td class="num">2025</td>
+              <td class="num">₹18.0L</td>
+              <td class="num">~60–80</td>
+              <td class="bad">None (Inaugural cohorts)</td>
+              <td>ADYPU</td>
+            </tr>
+            <tr>
+              <td><strong>Intellipaat IST</strong></td>
+              <td class="num">2025</td>
+              <td class="num">₹16.0L</td>
+              <td class="num">63</td>
+              <td class="bad">None (24 unpaid training internships)</td>
+              <td>S-VYASA (Deemed-to-be University)</td>
+            </tr>
+            <tr>
+              <td><strong>NIAT</strong></td>
+              <td class="num">2023</td>
+              <td class="num">₹8.0L – ₹18.0L</td>
+              <td class="num">~80</td>
+              <td>8.5 LPA reported avg / 24 LPA high</td>
+              <td>ADYPU</td>
+            </tr>
+            <tr>
+              <td><strong>Veloces</strong></td>
+              <td class="num">2024</td>
+              <td class="num">₹10.0L – ₹16.0L</td>
+              <td class="num">—</td>
+              <td class="bad">None (Zero graduating batches)</td>
+              <td>ADYPU</td>
+            </tr>
+            <tr>
+              <td><strong>Alta School of Tech</strong></td>
+              <td class="num">2026</td>
+              <td class="num">₹9.8L – ₹15.0L</td>
+              <td class="num">—</td>
+              <td class="bad">None (Newest entrant)</td>
+              <td>ADYPU</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pullquote">
+        <p>“Five of the eight institutions possess zero graduating outcome history, yet command ₹16 to ₹27 lakh. The category’s central question is whether a family should bet a fifth of its net worth on an unproven entity.”</p>
+      </div>
+    </section>
+
+    <!-- SECTION 03: COMPETITIVE DIFFERENTIATION -->
+    <section id="s3">
+      <div class="shead"><span class="snum">03</span><h2>Competitive Landscape &amp; Market Differentiation</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Advisory Platform</th>
+              <th>Commercial Model</th>
+              <th>Primary Structural Flaw</th>
+              <th>Impact on Student</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Aggregator Portals</strong><br>(Shiksha, Collegedunia)</td>
+              <td>Cost-per-Lead &amp; Referral fees (₹20,000–₹60,000 / seat)</td>
+              <td>Ranks colleges by commercial commission rather than student fit.</td>
+              <td>Student is pushed to private partners paying the highest referral fees.</td>
+            </tr>
+            <tr>
+              <td><strong>YouTube Reviewers &amp; Influencers</strong></td>
+              <td>Brand sponsorships &amp; sponsored campus tours</td>
+              <td>Highlight top 1% package outliers while concealing dropouts and debt burden.</td>
+              <td>Creates unrealistic salary expectations and downplays loan traps.</td>
+            </tr>
+            <tr>
+              <td><strong>Coaching Class Counselors</strong></td>
+              <td>Repeat drop-year batch quota targets</td>
+              <td>Advise another drop year even when rank improvement probability is &lt;20%.</td>
+              <td>Burn a year of student life to collect coaching tuition fees.</td>
+            </tr>
+            <tr>
+              <td><strong>Campus Critique Bot</strong><br>(This Project)</td>
+              <td><strong>Independent Trust &amp; ₹99 Senior Calls</strong></td>
+              <td><strong>Zero referral commission.</strong> The only party capable of advising against spending!</td>
+              <td>Protects family net worth, stress-tests loan math, and equips student to audit sales reps.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 04: CORE THESIS & D1 -->
+    <section id="s4">
+      <div class="shead"><span class="snum">04</span><h2>Product Vision &amp; Locked Decision D1</h2></div>
+      
+      <div class="callout-box accented">
+        <div class="callout-tag">Locked Decision D1 · Structural Operational Disinterest</div>
+        <p><strong>The bot’s primary performance metric is never admissions.</strong> The platform accepts zero commercial referral revenue from any college. The system must possess the structural capability and conversational duty to state:</p>
+        <p style="font-family: var(--serif); font-size: 1.15rem; margin: 12px 0; color: var(--accent);"><em>“Based on your family’s annual income and risk parameters, you should not spend ₹18–24 lakh on any institution in this category. Here is what I would do instead.”</em></p>
+        <p style="margin-bottom: 0;">The operational metric <code>advised_against_spending_rate</code> must remain strictly greater than zero (target: 10%–20%). A 0% rate over any 30-day window is classified as a Severity-0 bug.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 05: USER PERSONAS -->
+    <section id="s5">
+      <div class="shead"><span class="snum">05</span><h2>User Personas &amp; Psychological Archetypes</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Persona</th>
+              <th>Demographics &amp; Scores</th>
+              <th>Psychological Reality</th>
+              <th>Bot Objective</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Aarav (The Panic-Stricken Aspirant)</strong></td>
+              <td>18 yrs, Lucknow, 12th: 84%, JEE Main: 78.4%ile (~3.13L rank)</td>
+              <td>Emotional collapse. Believes "life is over". Overwhelmed by contradictory advice. Father willing to take ₹20L loan.</td>
+              <td>De-escalate panic, compute realistic rank, burst the binary trap, execute loan stress-test, talk down from expensive pick.</td>
+            </tr>
+            <tr>
+              <td><strong>Ramesh (The Risk-Conscious Parent)</strong></td>
+              <td>49 yrs, Tier-2 Govt Employee, Income ~₹6L/yr</td>
+              <td>Willing to sacrifice savings for son's tech career; dreads fraudulent degrees and property confiscation.</td>
+              <td>Provide exact EMI math, unvarnished collateral rules, and UGC partner accreditation facts.</td>
+            </tr>
+            <tr>
+              <td><strong>Priya (The Conflicted Dropper)</strong></td>
+              <td>19 yrs, Dropper, improved from 62%ile to 81%ile</td>
+              <td>Deep fatigue. Parents refuse second drop. Wondering if new-age tech colleges offer genuine acceleration.</td>
+              <td>Deliver honest statistical odds of second drops (&lt;5% positive migration), evaluate curriculum depth, supply audit questions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 06: THE 7-STAGE MODEL -->
+    <section id="s6">
+      <div class="shead"><span class="snum">06</span><h2>The 7-Stage Conversational Model</h2></div>
+      <p class="lead">Rather than deploying a rigid decision tree or an unconstrained chatbot, the system executes an empathetic 7-stage state machine modeled after an authoritative, grounded college senior.</p>
+
+      <figure class="diagram-card">
+        <div class="diagram-frame">
+          <svg viewBox="0 0 880 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="7-stage conversational advisory pipeline diagram">
+            <g font-family="IBM Plex Sans, sans-serif">
+              <!-- Safety Branch -->
+              <rect x="560" y="24" width="280" height="76" fill="#f8edea" stroke="#8b2515" stroke-width="1.5"/>
+              <text x="576" y="50" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="#8b2515">SAFETY INTERCEPT · TELE-MANAS 14416</text>
+              <text x="576" y="70" font-size="12" fill="#524c45">Triggers on academic distress from any stage.</text>
+              <text x="576" y="88" font-size="11" fill="#8b2515" font-family="IBM Plex Mono">Halt funnel · Dispatch supervisor webhook</text>
+
+              <path d="M 360 58 L 560 58" stroke="#8b2515" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+
+              <!-- Stage 1 -->
+              <rect x="60" y="32" width="300" height="50" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="78" y="62" font-size="14.5" font-weight="500">1. Stabilise</text>
+              <text x="210" y="62" font-family="IBM Plex Mono" font-size="11" fill="#524c45">Compute Rank</text>
+              <line x1="210" y1="82" x2="210" y2="106" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 2 -->
+              <rect x="60" y="106" width="300" height="50" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="78" y="136" font-size="14.5" font-weight="500">2. Locate</text>
+              <text x="180" y="136" font-family="IBM Plex Mono" font-size="11" fill="#524c45">Batched Diagnostic</text>
+              <line x1="210" y1="156" x2="210" y2="180" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 3 -->
+              <rect x="60" y="180" width="300" height="50" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="78" y="210" font-size="14.5" font-weight="500">3. Widen</text>
+              <text x="180" y="210" font-family="IBM Plex Mono" font-size="11" fill="#524c45">6 Option Pathways</text>
+              <line x1="210" y1="230" x2="210" y2="254" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 4: Stress-Test (GATE) -->
+              <rect x="60" y="254" width="300" height="58" fill="#f8edea" stroke="#8b2515" stroke-width="1.6"/>
+              <text x="78" y="282" font-size="14.5" font-weight="600" fill="#8b2515">4. Stress-Test</text>
+              <text x="78" y="300" font-family="IBM Plex Mono" font-size="11" fill="#8b2515">Loan Ceiling · EMI · Degree HEI</text>
+
+              <!-- Gate Line -->
+              <line x1="40" y1="340" x2="480" y2="340" stroke="#8b2515" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <text x="495" y="336" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="#8b2515">MANDATORY ARCHITECTURAL GATE</text>
+              <text x="495" y="352" font-size="12" fill="#524c45">No college named until loan math clears</text>
+
+              <line x1="210" y1="312" x2="210" y2="368" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 5 -->
+              <rect x="60" y="368" width="300" height="50" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="78" y="398" font-size="14.5" font-weight="500">5. Narrow</text>
+              <text x="175" y="398" font-family="IBM Plex Mono" font-size="11" fill="#524c45">Top 3 + Cautions</text>
+              <line x1="210" y1="418" x2="210" y2="442" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 6 -->
+              <rect x="60" y="442" width="300" height="50" fill="#f5f2ec" stroke="#161413" stroke-width="1.2"/>
+              <text x="78" y="472" font-size="14.5" font-weight="600">6. Equip</text>
+              <text x="160" y="472" font-family="IBM Plex Mono" font-size="11" fill="#524c45">"Ask This" 5-Audit Pack</text>
+
+              <!-- Connector to Stage 7 -->
+              <line x1="360" y1="467" x2="470" y2="467" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Stage 7 -->
+              <rect x="470" y="442" width="300" height="50" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="488" y="472" font-size="14.5" font-weight="500">7. Hand Off</text>
+              <text x="590" y="472" font-family="IBM Plex Mono" font-size="11" fill="#524c45">₹99 Connect Senior Link</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1</b>The 7-Stage State Machine with Mandatory Gate and Psychological Distress Divergence.</figcaption>
+      </figure>
+    </section>
+
+    <!-- SECTION 07: MOSCOW REQUIREMENTS -->
+    <section id="s7">
+      <div class="shead"><span class="snum">07</span><h2>MoSCoW Functional Requirements Matrix</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Priority</th>
+              <th>Feature Description</th>
+              <th>Acceptance Criteria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>REQ-M01</strong></td>
+              <td class="good"><strong>Must Have</strong></td>
+              <td>Deterministic Rank Estimation</td>
+              <td>Given a percentile $P$, computes indicative rank using formula $R = (100 - P) \times 14500$. Appends NTA shift normalisation disclaimer.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-M02</strong></td>
+              <td class="good"><strong>Must Have</strong></td>
+              <td>Loan Capacity Calculation</td>
+              <td>Caches family income; calculates $4\times$ borrowing ceiling; flags property collateral requirement if loan &gt; ₹7.5 lakh.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-M03</strong></td>
+              <td class="good"><strong>Must Have</strong></td>
+              <td>The Mandatory Financial Gate</td>
+              <td>Permanently blocks college name emission until all three stress-test dimensions (Loan, Downside, Degree) are completed and cleared.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-M04</strong></td>
+              <td class="good"><strong>Must Have</strong></td>
+              <td>Mandatory Institutional Cautions</td>
+              <td>Outbound college recommendations must contain the exact audited caution string from <code>wa_college_facts</code>. Rail 4 blocks output if omitted.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-M05</strong></td>
+              <td class="good"><strong>Must Have</strong></td>
+              <td>Hinglish Distress Safety Intercept</td>
+              <td>5-boolean classifier intercepts guilt framing; halts funnel within 300ms; dispatches Tele-MANAS 14416 crisis helpline and supervisor webhook.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-S01</strong></td>
+              <td><strong>Should Have</strong></td>
+              <td>Unlisted College Demand Tracking</td>
+              <td>Disclaims lack of verified data when candidate asks about non-indexed colleges; records query in <code>wa_college_demand</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-S02</strong></td>
+              <td><strong>Should Have</strong></td>
+              <td>4000ms Ingestion Debouncing</td>
+              <td>QStash sliding buffer aggregates successive messages sent within 4 seconds into a single unified execution prompt.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-C01</strong></td>
+              <td><strong>Could Have</strong></td>
+              <td>Longitudinal Review Flywheel</td>
+              <td>Automated consent-based WhatsApp pings at 3, 6, and 12 months post-enrollment to collect structured reviews.</td>
+            </tr>
+            <tr>
+              <td><strong>REQ-W01</strong></td>
+              <td class="bad"><strong>Won't Have (v1)</strong></td>
+              <td>Predictive AI Cutoff Generator</td>
+              <td>Strictly banned. No model will ever estimate state counseling cutoffs without verified official data.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 08: UI/UX & WHATSAPP RULES -->
+    <section id="s8">
+      <div class="shead"><span class="snum">08</span><h2>Messaging UI/UX &amp; WhatsApp Rules</h2></div>
+      
+      <h3>Linguistic Register &amp; Persona Guidelines</h3>
+      <p>The bot converses in an authentic, respectful <strong>Hinglish senior register</strong> (an experienced college senior or older sibling who has successfully navigated counseling). Explicit rules:</p>
+      <ul>
+        <li><strong>Banned Superficial Cheer:</strong> Never use <em>"Don't worry, everything happens for a reason!"</em> Instead use: <em>"78.4 percentile after an entire year of preparation genuinely stings. I am not going to sugarcoat that."</em></li>
+        <li><strong>Banned Promotional Vocabulary:</strong> Automated regex filters block: <em>"guaranteed placement", "100% placement", "limited seats", "hurry up", "instant admission"</em>.</li>
+        <li><strong>Message Length Constraints:</strong> Every outbound bubble is constrained to <strong>under 140 words</strong> to prevent cognitive fatigue.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 09: KPI FRAMEWORK -->
+    <section id="s9">
+      <div class="shead"><span class="snum">09</span><h2>Transcript-Derived KPI Framework (Decision D4)</h2></div>
+      <p class="lead">100% of performance metrics are derived programmatically from the conversational transcript without intrusive surveys.</p>
+
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Metric Name</th>
+              <th>Derivation Methodology</th>
+              <th class="num">Target</th>
+              <th>Strategic Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>advised_against_spending_rate</code> ★</td>
+              <td>Conversations where Stage 4 resulted in negative spending recommendation</td>
+              <td class="num good">10%–20% (&gt;0%)</td>
+              <td>Proof of operational independence. 0% for a month is a P0 bug.</td>
+            </tr>
+            <tr>
+              <td><code>stage_depth_median</code></td>
+              <td>Deepest stage reached across all sessions (1 to 7)</td>
+              <td class="num good">&ge; 5.0</td>
+              <td>Validates conversational engagement and low drop-off.</td>
+            </tr>
+            <tr>
+              <td><code>stress_test_completion_rate</code></td>
+              <td>Conversations completing all three tests (Loan, Downside, Degree)</td>
+              <td class="num good">&ge; 60%</td>
+              <td>Measures adherence to the financial gate.</td>
+            </tr>
+            <tr>
+              <td><code>option_set_expansion_rate</code></td>
+              <td>Candidates with &ge;1 new option pathway considered at close vs intake</td>
+              <td class="num good">&ge; 70%</td>
+              <td>Proves the bot burst narrow binary thinking.</td>
+            </tr>
+            <tr>
+              <td><code>dont_know_rate</code></td>
+              <td>Queries where the bot disclaimed lack of verified primary data</td>
+              <td class="num good">&gt; 0%</td>
+              <td>Measures resistance to hallucinating unindexed colleges.</td>
+            </tr>
+            <tr>
+              <td><code>ungrounded_numeric_claims</code></td>
+              <td>Numbers in output missing from retrieved Fact Block</td>
+              <td class="num bad">0 (Zero)</td>
+              <td>Absolute protection against fabricated fees or salaries.</td>
+            </tr>
+            <tr>
+              <td><code>distress_routing_recall</code></td>
+              <td>Academic crisis triggers routed to Tele-MANAS</td>
+              <td class="num good">100% (Zero Error)</td>
+              <td>Safety invariant for vulnerable adolescents.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 10: ETHICS & SAFETY -->
+    <section id="s10">
+      <div class="shead"><span class="snum">10</span><h2>Ethics, Safety &amp; Tele-MANAS (14416)</h2></div>
+      
+      <h3>DPDP Act 2023 Compliance for Minors</h3>
+      <ul>
+        <li><strong>Isolated Data Silo (Decision D9):</strong> Minors' phone numbers, family income, and session data live in a dedicated Supabase schema (<code>wa</code>) completely separated from web application databases.</li>
+        <li><strong>No National Identifiers:</strong> The system strictly prohibits collecting Aadhaar numbers, application passwords, or banking credentials.</li>
+        <li><strong>Session Purge Policies:</strong> Session transcripts are automatically anonymized following the close of each admission cycle.</li>
+      </ul>
+
+      <h3>Mental Health Crisis Protocol: Tele-MANAS (14416)</h3>
+      <p>The system integrates <strong>Tele-MANAS (14416 / 1800-891-4416)</strong>, the national 24/7 mental health counseling helpline launched by the Ministry of Health and Family Welfare (MoHFW) with NIMHANS as the nodal agency, spanning 53 tele-mental health operational cells across 36 states and UTs. When acute distress or self-harm ideation is detected, the counseling funnel halts immediately, a supportive response is delivered, and emergency alerts are dispatched to platform administrators.</p>
+    </section>
+
+    <!-- SECTION 11: ROADMAP -->
+    <section id="s11">
+      <div class="shead"><span class="snum">11</span><h2>Roadmap &amp; Delivery Milestones</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Milestone Name</th>
+              <th class="num">Duration</th>
+              <th>Core Deliverables &amp; Exit Criteria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Phase 0</strong></td>
+              <td>Infrastructure Foundations</td>
+              <td class="num">1 Wk</td>
+              <td>Meta Business Account verified; Supabase <code>wa</code> schema migrated; CI pipeline running.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 1</strong></td>
+              <td>Deterministic Core (Zero LLM)</td>
+              <td class="num">2 Wks</td>
+              <td><strong>All 7 stages operational with zero model calls.</strong> Buttons, SQL facts, compute, and match engine fully unit-tested.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 2</strong></td>
+              <td>Model &amp; Guardrail Engine</td>
+              <td class="num">2 Wks</td>
+              <td>Vercel AI SDK integration, Hinglish 5-rail guardrails, decomposed safety classifier, numeric sweep rail live.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 3</strong></td>
+              <td>Evaluation &amp; Red-Teaming</td>
+              <td class="num">2 Wks</td>
+              <td>Promptfoo CI test suite (50+ vulnerability scans), self-hosted Langfuse OTel tracing, transcript replay testing.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 4</strong></td>
+              <td>Private Pilot (50 Students)</td>
+              <td class="num">2 Wks</td>
+              <td>Pilot deployment on dedicated test number; transcript calibration; unit economic audit.</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 5</strong></td>
+              <td>Production Launch &amp; Flywheel</td>
+              <td class="num">Ongoing</td>
+              <td>Public deployment; review collection triggers for July-enrolled students; continuous optimization prior to June 2027 peak.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s12">
+      <div class="shead"><span class="snum">12</span><h2>Faculty Traceability &amp; Implementation Boundary</h2></div>
+      <div class="callout-box green">
+        <div class="callout-tag">Status clarification</div>
+        <p>This PRD is the product specification and evaluation baseline. It does not claim that Meta credentials, the WhatsApp Business Account, Supabase production, or the private pilot are already live.</p>
+      </div>
+      <p>This page is the browser version of the downloadable <a href="prd.pdf">PRD PDF</a>. Implementation contracts are covered in the <a href="trd.html">TRD</a>; behavioural evidence is in <a href="conversation.html">conversation.html</a>.</p>
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead><tr><th>Requirement</th><th>Architectural control</th><th>Validation artefact</th></tr></thead>
+          <tbody>
+            <tr><td>REQ-M01 · rank estimate</td><td>Layer A deterministic compute</td><td>Rank unit tests and Aarav replay</td></tr>
+            <tr><td>REQ-M02 · loan/EMI</td><td>Pure arithmetic with dated assumptions</td><td>Formula tests and Stage 4 replay</td></tr>
+            <tr><td>REQ-M03 · financial gate</td><td>FSM invariant before Stage 5</td><td>Premature-recommendation red team</td></tr>
+            <tr><td>REQ-M04 · caution</td><td>Fact-block caution required by output rail</td><td>Grounding and output scanner tests</td></tr>
+            <tr><td>REQ-M05 · distress</td><td>Rail 1 pre-emption and supervisor alert</td><td>Hinglish crisis Promptfoo suite</td></tr>
+            <tr><td>REQ-S01 · unknown college</td><td><code>wa_college_demand</code> event</td><td>VIT/unlisted-college scenario</td></tr>
+            <tr><td>REQ-S02 · debounce</td><td>QStash sliding buffer and idempotency</td><td>Burst-message integration test</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Product invariants</h3>
+      <ol class="ordered-list">
+        <li>Crisis signals stop the funnel immediately.</li>
+        <li>College recommendations require loan, downside and degree checks.</li>
+        <li>Every number is computed, looked up from a versioned fact, or omitted.</li>
+        <li>Every recommendation includes a caution; “none are safe” is valid.</li>
+        <li>Students can reply <code>STOP</code> to end follow-up.</li>
+      </ol>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dossier-footer">
+      <p><strong>Campus Critique Engineering &amp; Research Group</strong> · Academic Year 2026–2027</p>
+      <p>Companion Technical Requirements Document available at <a href="trd.html" style="color: var(--accent);">trd.html</a>. Conversational simulations available at <a href="conversation.html" style="color: var(--accent);">conversation.html</a>.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

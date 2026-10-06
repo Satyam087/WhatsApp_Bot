@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Critique — Technical Requirements Document (TRD)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fcfbf9;
+      --bg-wash: #f5f2ec;
+      --bg-card: #ffffff;
+      --ink: #161413;
+      --ink2: #524c45;
+      --ink3: #7d756c;
+      --rule: #dfd9cf;
+      --rule2: #eae5dc;
+      --accent: #8b2515;
+      --accent-soft: #f8edea;
+      --green: #235332;
+      --green-soft: #eaf3ed;
+      --amber: #875c00;
+      --amber-soft: #fcf6e8;
+      
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+      --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      
+      --page-max: 1060px;
+      --text-max: 76ch;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 28px 96px 28px;
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(252, 251, 249, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      padding: 12px 0;
+      margin-bottom: 16px;
+    }
+    .nav-inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      text-decoration: none;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* Masthead */
+    header.masthead {
+      border-bottom: 2px solid var(--ink);
+      padding: 48px 0 28px 0;
+      margin-bottom: 40px;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px 0;
+      font-weight: 500;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin: 0 0 18px 0;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .dek {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+      line-height: 1.5;
+      color: var(--ink2);
+      margin: 0 0 28px 0;
+      max-width: var(--text-max);
+    }
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink3);
+    }
+    .meta-bar b {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* Table of contents */
+    nav.toc {
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 0 32px 0;
+      margin-bottom: 24px;
+    }
+    nav.toc h2 {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin: 0 0 16px 0;
+      font-weight: 500;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 6px 32px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .toc-grid a {
+      display: flex;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 14.5px;
+      padding: 4px 0;
+    }
+    .toc-grid a:hover {
+      color: var(--accent);
+    }
+    .toc-grid .num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      min-width: 22px;
+    }
+
+    /* Sections */
+    section {
+      padding-top: 52px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--rule2);
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+    .shead {
+      display: flex;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+    .snum {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+      min-width: 32px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+      font-weight: 500;
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--ink);
+    }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      margin: 36px 0 14px 0;
+      color: var(--ink);
+    }
+    h4 {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 26px 0 10px 0;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 18px 0;
+      max-width: var(--text-max);
+      color: var(--ink);
+    }
+    p.lead {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      line-height: 1.58;
+      color: var(--ink);
+      margin-bottom: 24px;
+      max-width: var(--text-max);
+    }
+    ul, ol {
+      max-width: var(--text-max);
+      margin: 0 0 20px 0;
+      padding-left: 22px;
+    }
+    li { margin-bottom: 8px; }
+    strong { font-weight: 600; color: var(--ink); }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.88em;
+      background-color: var(--bg-wash);
+      padding: 1.5px 5px;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+
+    pre.code-block {
+      background-color: var(--bg-card);
+      border: 1px solid var(--rule);
+      padding: 20px 22px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 12.8px;
+      line-height: 1.55;
+      margin: 26px 0;
+      color: var(--ink);
+    }
+
+    /* Tables */
+    .table-scroller {
+      overflow-x: auto;
+      margin: 28px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+      min-width: 640px;
+    }
+    table.data-table th {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      font-weight: 500;
+      padding: 12px 16px 12px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: left;
+      vertical-align: bottom;
+    }
+    table.data-table td {
+      padding: 11px 16px 11px 0;
+      border-bottom: 1px solid var(--rule2);
+      vertical-align: top;
+      color: var(--ink);
+    }
+    table.data-table tr:last-child td { border-bottom: none; }
+    table.data-table th:last-child,
+    table.data-table td:last-child { padding-right: 0; }
+    .num {
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    th.num { text-align: right; }
+    .bad { color: var(--accent); font-weight: 600; }
+    .good { color: var(--green); font-weight: 600; }
+
+    /* Pullquote & Callout */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      padding: 6px 0 6px 24px;
+      margin: 32px 0;
+      max-width: var(--text-max);
+    }
+    .pullquote p {
+      font-family: var(--serif);
+      font-size: 1.24rem;
+      line-height: 1.48;
+      font-style: italic;
+      color: var(--ink);
+      margin: 0;
+    }
+    .callout-box {
+      border: 1px solid var(--rule);
+      background-color: var(--bg-card);
+      padding: 22px 26px;
+      margin: 28px 0;
+      max-width: var(--text-max);
+    }
+    .callout-box.accented {
+      border-left: 3px solid var(--accent);
+      background-color: var(--bg-wash);
+    }
+    .callout-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 0 10px 0;
+    }
+
+    /* Diagrams */
+    figure.diagram-card {
+      margin: 36px 0;
+      padding: 0;
+    }
+    .diagram-frame {
+      border: 1px solid var(--rule);
+      background-color: var(--bg-card);
+      padding: 28px 24px;
+      overflow-x: auto;
+    }
+    .diagram-frame svg {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+    figcaption {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    figcaption b {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    /* Footer */
+    footer.dossier-footer {
+      border-top: 2px solid var(--ink);
+      padding-top: 28px;
+      margin-top: 64px;
+      font-size: 13px;
+      color: var(--ink3);
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding-inline: 18px; }
+      .meta-bar { gap: 10px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navigation -->
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Campus Critique · Engineering Dossier</a>
+      <ul class="nav-links">
+        <li><a href="prd.html">PRD</a></li>
+        <li><a href="trd.html" class="active">TRD</a></li>
+        <li><a href="report.html">Executive Report</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <!-- Masthead -->
+    <header class="masthead">
+      <p class="eyebrow">Technical Requirements Document (TRD) · System Design &amp; Architecture</p>
+      <h1>Engineering Architecture, Guardrail Pipelines &amp; Data Infrastructure</h1>
+      <p class="dek">Complete software engineering specification for the Campus Critique WhatsApp Advisory Agent, featuring non-blocking asynchronous ingestion, five-rail guardrails, deterministic arithmetic, and zero hallucination.</p>
+      
+      <div class="meta-bar">
+        <span><b>Document Version:</b> 2.0 (Defense Baseline)</span>
+        <span><b>Runtime:</b> Next.js 16 (Node.js 22 LTS / Edge)</span>
+        <span><b>Database:</b> Supabase PostgreSQL 16 + pgvector</span>
+        <span><b>Queue:</b> Upstash QStash</span>
+        <span><b>Observability:</b> OpenTelemetry + Langfuse</span>
+      </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h2>Document Contents</h2>
+      <ol class="toc-grid">
+        <li><a href="#s1"><span class="num">01</span><span>Tech Stack Justification &amp; Trade-offs</span></a></li>
+        <li><a href="#s2"><span class="num">02</span><span>System Architecture &amp; Decomposition</span></a></li>
+        <li><a href="#s3"><span class="num">03</span><span>Critical Bottlenecks &amp; Solutions</span></a></li>
+        <li><a href="#s4"><span class="num">04</span><span>UML Sequence &amp; State Diagrams</span></a></li>
+        <li><a href="#s5"><span class="num">05</span><span>The 5-Rail Guardrail Implementation</span></a></li>
+        <li><a href="#s6"><span class="num">06</span><span>Deterministic Mathematical Models</span></a></li>
+        <li><a href="#s7"><span class="num">07</span><span>PostgreSQL Database Schema (wa)</span></a></li>
+        <li><a href="#s8"><span class="num">08</span><span>Hinglish Crisis Safety Protocol</span></a></li>
+        <li><a href="#s9"><span class="num">09</span><span>CI/CD &amp; Promptfoo Release Gates</span></a></li>
+        <li><a href="#s10"><span class="num">10</span><span>Observability &amp; Unit Economics</span></a></li>
+        <li><a href="#s11"><span class="num">11</span><span>9-Week Phased Roadmap (WBS)</span></a></li>
+        <li><a href="#s12"><span class="num">12</span><span>Implementation Boundary &amp; Traceability</span></a></li>
+      </ol>
+    </nav>
+
+    <!-- SECTION 01: TECH STACK JUSTIFICATION -->
+    <section id="s1">
+      <div class="shead"><span class="snum">01</span><h2>Technology Stack Justification &amp; Trade-Off Analysis</h2></div>
+      <p class="lead">Every layer of the Campus Critique technical stack has been selected through empirical benchmark trade-offs, prioritizing deterministic correctness and sub-second performance over complex autonomous abstractions.</p>
+
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Selected Technology</th>
+              <th>Rejected Alternatives</th>
+              <th>Architectural Justification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Model Access Layer</strong></td>
+              <td><strong>Vercel AI SDK (v3.x)</strong> (<code>generateObject</code> + Zod)</td>
+              <td>LangGraph.js, Mastra, AutoGen</td>
+              <td><strong>Zero agentic overhead.</strong> Constrains generation to typed JSON schemas. LangGraph.js trails Python updates by 4–8 weeks and introduces unnecessary state graph complexity for linear counseling stages.</td>
+            </tr>
+            <tr>
+              <td><strong>Messaging Gateway</strong></td>
+              <td><strong>Meta WhatsApp Cloud API Direct</strong></td>
+              <td>Twilio, Gupshup, Wati</td>
+              <td><strong>Direct HTTPS Graph API v20.0 with ₹0 markup.</strong> Third-party BSPs charge 15–25% markups and introduce 600–900ms added network hops without supporting custom TypeScript guardrails.</td>
+            </tr>
+            <tr>
+              <td><strong>Message Queue &amp; Debounce</strong></td>
+              <td><strong>Upstash QStash</strong></td>
+              <td>BullMQ / Redis, AWS SQS, Cloud Tasks</td>
+              <td>Serverless HTTP broker requiring zero dedicated worker infrastructure. Delivers native sliding-window 4000ms debounce and deduplication on <code>wamid</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>Relational &amp; Vector DB</strong></td>
+              <td><strong>Supabase PostgreSQL 16 + pgvector</strong></td>
+              <td>Pinecone, Qdrant, Chroma</td>
+              <td>Single database instance hosting relational facts and HNSW vector embeddings. Eliminates dual-write consistency hazards and ₹5,000/mo vector cloud fees.</td>
+            </tr>
+            <tr>
+              <td><strong>CI/CD Red-Teaming</strong></td>
+              <td><strong>Promptfoo</strong> (GitHub Actions)</td>
+              <td>DeepEval, Braintrust</td>
+              <td>Node-native, fast YAML-based CI scanner running 50+ vulnerability scans (jailbreaks, prompt leaks, numeric fee baiting) on every PR.</td>
+            </tr>
+            <tr>
+              <td><strong>Telemetry &amp; Tracing</strong></td>
+              <td><strong>Langfuse (Self-Hosted)</strong></td>
+              <td>Datadog, Arize Phoenix</td>
+              <td>Native OpenTelemetry GenAI semantic conventions (<code>gen_ai.*</code>) running on an open-source ClickHouse container with zero vendor lock-in.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 02: SYSTEM ARCHITECTURE -->
+    <section id="s2">
+      <div class="shead"><span class="snum">02</span><h2>System Architecture &amp; Component Decomposition</h2></div>
+      <p class="lead">The fundamental premise of our architecture is defence in depth: the Large Language Model is the least reliable component in the system; therefore, it is granted the smallest operational scope and the maximum deterministic supervision.</p>
+
+      <figure class="diagram-card">
+        <div class="diagram-frame">
+          <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="End-to-end component decomposition architecture diagram">
+            <g font-family="IBM Plex Sans, sans-serif">
+              <!-- Meta Gateway -->
+              <rect x="20" y="30" width="160" height="270" fill="#f5f2ec" stroke="#dfd9cf" stroke-width="1.2"/>
+              <text x="100" y="58" font-family="IBM Plex Mono" font-size="11" font-weight="600" text-anchor="middle" fill="#8b2515">CLIENT / INGRESS</text>
+              <rect x="35" y="80" width="130" height="60" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="100" y="108" font-size="13" text-anchor="middle">Student Mobile</text>
+              <text x="100" y="125" font-family="IBM Plex Mono" font-size="10.5" fill="#524c45" text-anchor="middle">WhatsApp App</text>
+              <rect x="35" y="170" width="130" height="60" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="100" y="198" font-size="13" text-anchor="middle">Meta Cloud API</text>
+              <text x="100" y="215" font-family="IBM Plex Mono" font-size="10.5" fill="#524c45" text-anchor="middle">Graph API v20.0</text>
+
+              <!-- Arrow 1 -->
+              <line x1="180" y1="200" x2="230" y2="200" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Ingestion Domain -->
+              <rect x="230" y="30" width="220" height="270" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="340" y="58" font-family="IBM Plex Mono" font-size="11" font-weight="600" text-anchor="middle" fill="#8b2515">INGESTION &amp; QUEUE</text>
+              <rect x="250" y="80" width="180" height="65" fill="#f5f2ec" stroke="#161413" stroke-width="1.2"/>
+              <text x="340" y="106" font-size="13" font-weight="600" text-anchor="middle">Next.js Edge Webhook</text>
+              <text x="340" y="124" font-family="IBM Plex Mono" font-size="10.5" fill="#235332" text-anchor="middle">HMAC SHA-256 (&lt;220ms)</text>
+              <rect x="250" y="170" width="180" height="65" fill="#f8edea" stroke="#8b2515" stroke-width="1.2"/>
+              <text x="340" y="196" font-size="13" font-weight="600" text-anchor="middle">Upstash QStash</text>
+              <text x="340" y="214" font-family="IBM Plex Mono" font-size="10.5" fill="#8b2515" text-anchor="middle">4000ms Sliding Debounce</text>
+
+              <!-- Arrow 2 -->
+              <line x1="450" y1="200" x2="500" y2="200" stroke="#161413" stroke-width="1.2"/>
+
+              <!-- Worker Execution Domain -->
+              <rect x="500" y="30" width="360" height="270" fill="#ffffff" stroke="#8b2515" stroke-width="1.5"/>
+              <text x="680" y="58" font-family="IBM Plex Mono" font-size="11" font-weight="600" text-anchor="middle" fill="#8b2515">5-RAIL GUARDRAIL WORKER</text>
+              <rect x="520" y="75" width="320" height="34" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="535" y="97" font-family="IBM Plex Mono" font-size="10.5" font-weight="600" fill="#8b2515">RAIL 1:</text>
+              <text x="590" y="97" font-size="12">Decomposed Distress Classifier (5 Bools)</text>
+              <rect x="520" y="117" width="320" height="34" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="535" y="139" font-family="IBM Plex Mono" font-size="10.5" font-weight="600" fill="#8b2515">RAIL 2:</text>
+              <text x="590" y="139" font-size="12">Deterministic 7-Stage State Machine</text>
+              <rect x="520" y="159" width="320" height="34" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="535" y="181" font-family="IBM Plex Mono" font-size="10.5" font-weight="600" fill="#8b2515">RAIL 3:</text>
+              <text x="590" y="181" font-size="12">Retrieval: Math + SQL + pgvector</text>
+              <rect x="520" y="201" width="320" height="34" fill="#f8edea" stroke="#8b2515" stroke-width="1.2"/>
+              <text x="535" y="223" font-family="IBM Plex Mono" font-size="10.5" font-weight="600" fill="#8b2515">MODEL:</text>
+              <text x="590" y="223" font-size="12" font-weight="600">Phrasing Generator (Vercel AI SDK)</text>
+              <rect x="520" y="243" width="320" height="34" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="535" y="265" font-family="IBM Plex Mono" font-size="10.5" font-weight="600" fill="#8b2515">RAIL 4/5:</text>
+              <text x="600" y="265" font-size="12">Numeric Token Sweep &amp; Meta Dispatch</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 1</b>End-to-End Component Architecture and Asynchronous Decoupling.</figcaption>
+      </figure>
+
+      <h3>Subsystem Isolation (Decision D9)</h3>
+      <p>The WhatsApp bot resides in its own Git repository and Vercel project, accessing an isolated <code>wa</code> schema inside Supabase. Static institutional facts and approved student reviews are synced via an automated nightly read-only ETL script. If the main web platform experiences outages, the counseling service continues operations off its verified local snapshot without failure.</p>
+    </section>
+
+    <!-- SECTION 03: CRITICAL BOTTLENECKS -->
+    <section id="s3">
+      <div class="shead"><span class="snum">03</span><h2>Critical Engineering Bottlenecks &amp; Solutions</h2></div>
+      <p class="lead">Building a conversational agent for high-stakes admission decisions exposes several architectural failure modes. Below is the technical resolution matrix:</p>
+
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Engineering Bottleneck</th>
+              <th>Failure Mode &amp; Impact</th>
+              <th>Architectural Solution Implemented</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td><strong>Meta 3-Second Webhook Timeout</strong></td>
+              <td>Serverless cold starts or multi-step LLM chains exceed 3000ms &rarr; Meta floods endpoint with retries.</td>
+              <td><strong>Immediate Edge ACK:</strong> Webhook performs HMAC check, drops event into QStash queue, and returns <code>HTTP 200 OK</code> within <strong>&lt;220ms</strong>. Worker executes asynchronously.</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td><strong>Burst Multi-Message Collisions</strong></td>
+              <td>Adolescents send 3–4 rapid messages in 5 seconds &rarr; Bot fires multiple uncoordinated replies.</td>
+              <td><strong>4000ms Sliding Window:</strong> Upstash QStash aggregates successive messages per <code>wa_id</code> into a single consolidated execution prompt.</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td><strong>Numeric Cutoff &amp; Fee Hallucination</strong></td>
+              <td>LLM fabricates closing ranks or fees &rarr; Student reorganizes plans around false data.</td>
+              <td><strong>Zero Model Math Authority:</strong> Arithmetic is executed by Layer A code; facts by Layer B SQL. Rail 4 token scanner aborts any unindexed number.</td>
+            </tr>
+            <tr>
+              <td><strong>4</strong></td>
+              <td><strong>Western Safety Guard Blindspots</strong></td>
+              <td>Off-the-shelf classifiers miss Indian academic guilt (<em>"kis muh se ghar jau"</em>).</td>
+              <td><strong>Decomposed 5-Boolean Classifier:</strong> Deconstructs Hinglish exam guilt into concrete flags with zero false-negative tolerance, escalating to Tele-MANAS.</td>
+            </tr>
+            <tr>
+              <td><strong>5</strong></td>
+              <td><strong>Meta 24h Window Expiration</strong></td>
+              <td>Outbound messages sent past 24 hours of user's last inbound fail delivery.</td>
+              <td><strong>Session Window Gate:</strong> Rail 5 inspects <code>last_inbound_at</code>. If expired, automatically switches to pre-approved Meta Utility Templates.</td>
+            </tr>
+            <tr>
+              <td><strong>6</strong></td>
+              <td><strong>Serverless DB Pool Exhaustion</strong></td>
+              <td>Traffic surges exhaust PostgreSQL max connections in serverless functions.</td>
+              <td><strong>Supavisor Connection Pooling:</strong> Routes database connections through transaction pooler; separates write queries from read replicas.</td>
+            </tr>
+            <tr>
+              <td><strong>7</strong></td>
+              <td><strong>RAG Semantic Ambiguity on Numbers</strong></td>
+              <td>Vector similarity cannot evaluate numerical ranges (12,847 rank vs 13,002).</td>
+              <td><strong>Strict Segregation:</strong> Vector embeddings are strictly restricted to qualitative review prose. All cutoffs reside in SQL tables.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 04: UML DIAGRAMS -->
+    <section id="s4">
+      <div class="shead"><span class="snum">04</span><h2>UML System Design Specifications</h2></div>
+      
+      <h3>4.1 UML Sequence Diagram: Request Lifecycle</h3>
+      <figure class="diagram-card">
+        <div class="diagram-frame">
+          <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UML sequence diagram of request processing lifecycle">
+            <g font-family="IBM Plex Sans, sans-serif">
+              <!-- Lifelines -->
+              <rect x="40" y="20" width="80" height="30" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="80" y="40" font-size="12" text-anchor="middle">Student</text>
+              <line x1="80" y1="50" x2="80" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <rect x="180" y="20" width="100" height="30" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="230" y="40" font-size="12" text-anchor="middle">Meta Gateway</text>
+              <line x1="230" y1="50" x2="230" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <rect x="340" y="20" width="90" height="30" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="385" y="40" font-size="12" text-anchor="middle">Webhook</text>
+              <line x1="385" y1="50" x2="385" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <rect x="490" y="20" width="80" height="30" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="530" y="40" font-size="12" text-anchor="middle">QStash</text>
+              <line x1="530" y1="50" x2="530" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <rect x="630" y="20" width="90" height="30" fill="#f8edea" stroke="#8b2515" stroke-width="1.2"/>
+              <text x="675" y="40" font-size="12" text-anchor="middle" fill="#8b2515">5-Rail Worker</text>
+              <line x1="675" y1="50" x2="675" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <rect x="780" y="20" width="80" height="30" fill="#f5f2ec" stroke="#161413" stroke-width="1"/>
+              <text x="820" y="40" font-size="12" text-anchor="middle">PostgreSQL</text>
+              <line x1="820" y1="50" x2="820" y2="360" stroke="#dfd9cf" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+              <!-- Messages -->
+              <line x1="80" y1="80" x2="230" y2="80" stroke="#161413" stroke-width="1.2"/>
+              <text x="155" y="74" font-size="11.5" text-anchor="middle">1. Send Msg</text>
+
+              <line x1="230" y1="100" x2="385" y2="100" stroke="#161413" stroke-width="1.2"/>
+              <text x="307" y="94" font-size="11.5" text-anchor="middle">2. POST Webhook</text>
+
+              <line x1="385" y1="120" x2="530" y2="120" stroke="#161413" stroke-width="1.2"/>
+              <text x="457" y="114" font-size="11.5" text-anchor="middle">3. Enqueue Event</text>
+
+              <line x1="385" y1="140" x2="230" y2="140" stroke="#235332" stroke-width="1.2" stroke-dasharray="4 2"/>
+              <text x="307" y="134" font-size="11" text-anchor="middle" fill="#235332">4. HTTP 200 OK (&lt;220ms)</text>
+
+              <!-- QStash delay -->
+              <rect x="520" y="160" width="20" height="30" fill="#f8edea" stroke="#8b2515"/>
+              <text x="560" y="178" font-family="IBM Plex Mono" font-size="11" fill="#8b2515">4000ms Debounce Window</text>
+
+              <line x1="530" y1="210" x2="675" y2="210" stroke="#161413" stroke-width="1.2"/>
+              <text x="602" y="204" font-size="11.5" text-anchor="middle">5. POST /worker</text>
+
+              <line x1="675" y1="240" x2="820" y2="240" stroke="#161413" stroke-width="1.2"/>
+              <text x="747" y="234" font-size="11.5" text-anchor="middle">6. SQL Facts &amp; State</text>
+
+              <line x1="820" y1="260" x2="675" y2="260" stroke="#161413" stroke-width="1.2" stroke-dasharray="4 2"/>
+              <text x="747" y="254" font-size="11.5" text-anchor="middle">7. Return Facts</text>
+
+              <line x1="675" y1="290" x2="230" y2="290" stroke="#161413" stroke-width="1.2"/>
+              <text x="452" y="284" font-size="11.5" text-anchor="middle">8. Dispatch Cloud API</text>
+
+              <line x1="230" y1="310" x2="80" y2="310" stroke="#161413" stroke-width="1.2"/>
+              <text x="155" y="304" font-size="11.5" text-anchor="middle">9. Display Bubble</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 2</b>UML Sequence Diagram: Asynchronous Ingestion and Execution.</figcaption>
+      </figure>
+
+      <h3>4.2 UML State Machine Diagram: 7-Stage Advisory Engine</h3>
+      <figure class="diagram-card">
+        <div class="diagram-frame">
+          <svg viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UML state machine transition diagram">
+            <g font-family="IBM Plex Sans, sans-serif">
+              <!-- States -->
+              <rect x="20" y="30" width="105" height="46" rx="4" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="72" y="58" font-size="12" font-weight="600" text-anchor="middle">1. Stabilise</text>
+
+              <line x1="125" y1="53" x2="155" y2="53" stroke="#161413" stroke-width="1.2"/>
+
+              <rect x="155" y="30" width="105" height="46" rx="4" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="207" y="58" font-size="12" font-weight="600" text-anchor="middle">2. Locate</text>
+
+              <line x1="260" y1="53" x2="290" y2="53" stroke="#161413" stroke-width="1.2"/>
+
+              <rect x="290" y="30" width="105" height="46" rx="4" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="342" y="58" font-size="12" font-weight="600" text-anchor="middle">3. Widen</text>
+
+              <line x1="395" y1="53" x2="435" y2="53" stroke="#8b2515" stroke-width="1.5"/>
+
+              <!-- Stage 4 Stress-Test -->
+              <rect x="435" y="24" width="130" height="58" rx="4" fill="#f8edea" stroke="#8b2515" stroke-width="1.6"/>
+              <text x="500" y="48" font-size="12" font-weight="600" text-anchor="middle" fill="#8b2515">4. Stress-Test</text>
+              <text x="500" y="66" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" fill="#8b2515">MANDATORY GATE</text>
+
+              <line x1="565" y1="53" x2="605" y2="53" stroke="#161413" stroke-width="1.2"/>
+
+              <rect x="605" y="30" width="105" height="46" rx="4" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="657" y="58" font-size="12" font-weight="600" text-anchor="middle">5. Narrow</text>
+
+              <line x1="710" y1="53" x2="740" y2="53" stroke="#161413" stroke-width="1.2"/>
+
+              <rect x="740" y="30" width="105" height="46" rx="4" fill="#ffffff" stroke="#161413" stroke-width="1.2"/>
+              <text x="792" y="58" font-size="12" font-weight="600" text-anchor="middle">6. Equip</text>
+
+              <!-- Safety branch -->
+              <path d="M 72 76 L 72 150 L 320 150" stroke="#8b2515" stroke-width="1.2" stroke-dasharray="4 3" fill="none"/>
+              <rect x="320" y="125" width="240" height="50" rx="4" fill="#f8edea" stroke="#8b2515" stroke-width="1.5"/>
+              <text x="440" y="148" font-size="12" font-weight="600" text-anchor="middle" fill="#8b2515">CRISIS INTERCEPT: TELE-MANAS 14416</text>
+              <text x="440" y="164" font-family="IBM Plex Mono" font-size="10" text-anchor="middle" fill="#524c45">Halt Funnel · Emergency Escalation</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 3</b>UML Statechart: Conversational Finite State Transitions with Safety Intercept.</figcaption>
+      </figure>
+    </section>
+
+    <!-- SECTION 05: 5-RAIL CODE CONTRACTS -->
+    <section id="s5">
+      <div class="shead"><span class="snum">05</span><h2>The Five-Rail Guardrail Engine: Code Contracts</h2></div>
+      
+      <h3>Rail 1: Decomposed Distress Evaluation</h3>
+      <pre class="code-block">export interface DistressEvaluation {
+  hopelessness_future: boolean;      // weight: 0.10 ("kuch nahi bacha ab")
+  self_harm_suicide: boolean;         // weight: 0.35 ("sab khatam karna chahta hu")
+  irreparable_family_shame: boolean;  // weight: 0.20 ("papa ka sar jhuka diya")
+  plan_or_method_reference: boolean;  // weight: 0.25 (concrete methods mentioned)
+  feeling_of_burden: boolean;         // weight: 0.10 ("sab par bojh hu")
+}
+
+export function evaluateCrisisScore(evals: DistressEvaluation): number {
+  return (
+    (evals.self_harm_suicide ? 0.35 : 0) +
+    (evals.plan_or_method_reference ? 0.25 : 0) +
+    (evals.irreparable_family_shame ? 0.20 : 0) +
+    (evals.hopelessness_future ? 0.10 : 0) +
+    (evals.feeling_of_burden ? 0.10 : 0)
+  );
+  // Threshold >= 0.40 halts state transitions and dispatches Tele-MANAS 14416
+}</pre>
+
+      <h3>Rail 2: The Mandatory Gate Invariant</h3>
+      <pre class="code-block">export function canTransitionToNarrow(profile: StudentProfile): boolean {
+  // Hard invariant: Recommendations are permanently blocked
+  // until all three stress-test dimensions complete and clear.
+  return (
+    profile.loan_test_completed === true &&
+    profile.downside_test_completed === true &&
+    profile.degree_test_completed === true &&
+    profile.loan_affordability_cleared === true
+  );
+}</pre>
+
+      <h3>Rail 4: Output Guardrail Token Scanner</h3>
+      <pre class="code-block">export function sweepNumericClaims(candidateText: string, factBlock: ImmutableFactBlock): boolean {
+  // Regex extracting all monetary figures (₹), percentages (%), LPA packages, and ranks (>3 digits)
+  const regex = /(?:₹|Rs\.?)\s*[\d,.]+(?:\s*(?:Lakh|Crore|L|Cr))?|\b\d+(?:\.\d+)?\s*(?:LPA|%|percentile|rank)\b|\b\d{4,7}\b/gi;
+  const extractedTokens = candidateText.match(regex) || [];
+
+  for (const token of extractedTokens) {
+    const normalized = normalizeToken(token);
+    if (!factBlock.indexedTokens.has(normalized)) {
+      // Grounding Violation: Number generated by model was NOT in Fact Block!
+      console.error(`Grounding violation detected: Token '${token}' missing from Fact Block.`);
+      return false; // Blocks output; triggers fallback template
+    }
+  }
+  return true;
+}</pre>
+    </section>
+
+    <!-- SECTION 06: DETERMINISTIC MATH -->
+    <section id="s6">
+      <div class="shead"><span class="snum">06</span><h2>Deterministic Mathematical Formulations</h2></div>
+      
+      <p><strong>1. Indicative JEE Main Rank Normalisation:</strong> Given registered candidates $N_{\text{total}} = 14,50,000$ and student percentile $P$:</p>
+      <pre class="code-block">export function computeIndicativeRank(percentile: number): number {
+  const TOTAL_CANDIDATES = 1450000;
+  return Math.floor((100 - percentile) * (TOTAL_CANDIDATES / 100)) + 1;
+}</pre>
+
+      <p><strong>2. Prudent Education Loan Borrowing Ceiling:</strong> Under Indian banking guidelines, prudent unsecured credit is capped at $4\times$ gross annual household income:</p>
+      <pre class="code-block">export function computeMaxPrudentLoan(annualIncome: number): {
+  maxPrudentLoan: number;
+  requiresCollateral: boolean;
+} {
+  return {
+    maxPrudentLoan: annualIncome * 4,
+    requiresCollateral: annualIncome * 4 > 750000 // Loans above 7.5L require property collateral
+  };
+}</pre>
+
+      <p><strong>3. Downside Monthly EMI Amortisation Model:</strong> Simulating downside risk on an ₹18L principal over 84 months (7 years) at a benchmark 10.5% interest rate:</p>
+      <pre class="code-block">export function calculateMonthlyEMI(principal: number, annualRate: number = 10.5, tenureMonths: number = 84): number {
+  const monthlyRate = (annualRate / 100) / 12; // 0.00875
+  const emi = principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths) / 
+              (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+  return Math.round(emi); // ~₹30,360/month on ₹18L loan
+}</pre>
+    </section>
+
+    <!-- SECTION 07: DATABASE SCHEMA -->
+    <section id="s7">
+      <div class="shead"><span class="snum">07</span><h2>Database Schema Specification (Supabase / PostgreSQL)</h2></div>
+      
+      <pre class="code-block">CREATE SCHEMA IF NOT EXISTS wa;
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA public;
+
+-- 1. Session state ledger
+CREATE TABLE wa.wa_conversations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    wa_id VARCHAR(32) NOT NULL UNIQUE, -- E.164 phone identifier (e.g. '919876543210')
+    current_stage VARCHAR(32) NOT NULL DEFAULT 'STAGE_1_STABILISE',
+    stage_depth_reached INTEGER NOT NULL DEFAULT 1,
+    last_inbound_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_outbound_at TIMESTAMPTZ,
+    advised_against_spending BOOLEAN NOT NULL DEFAULT FALSE,
+    distress_flagged BOOLEAN NOT NULL DEFAULT FALSE,
+    opt_out BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_wa_conv_wa_id ON wa.wa_conversations(wa_id);
+CREATE INDEX idx_wa_conv_stage ON wa.wa_conversations(current_stage);
+
+-- 2. Aspirant profile attributes
+CREATE TABLE wa.wa_student_profiles (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES wa.wa_conversations(id) ON DELETE CASCADE,
+    jee_percentile NUMERIC(5, 2),
+    indicative_rank INTEGER,
+    board_percentage NUMERIC(5, 2),
+    home_state VARCHAR(64),
+    annual_family_income NUMERIC(12, 2),
+    stated_budget_limit NUMERIC(12, 2),
+    career_aspiration VARCHAR(32) DEFAULT 'UNDECIDED',
+    loan_test_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    downside_test_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    degree_test_completed BOOLEAN NOT NULL DEFAULT FALSE,
+    loan_affordability_cleared BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 3. Inbound & outbound message ledger
+CREATE TABLE wa.wa_messages (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    conversation_id UUID NOT NULL REFERENCES wa.wa_conversations(id) ON DELETE CASCADE,
+    wamid VARCHAR(128) UNIQUE,
+    direction VARCHAR(8) NOT NULL CHECK (direction IN ('INBOUND', 'OUTBOUND')),
+    stage_at_transmission VARCHAR(32) NOT NULL,
+    raw_content TEXT NOT NULL,
+    tokens_prompt INTEGER DEFAULT 0,
+    tokens_completion INTEGER DEFAULT 0,
+    estimated_cost_inr NUMERIC(8, 4) DEFAULT 0.0000,
+    grounding_passed BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 4. Verified institutional facts
+CREATE TABLE wa.wa_college_facts (
+    slug VARCHAR(64) PRIMARY KEY,
+    display_name VARCHAR(128) NOT NULL,
+    fee_min_inr NUMERIC(12, 2) NOT NULL,
+    fee_max_inr NUMERIC(12, 2) NOT NULL,
+    degree_awarding_institution VARCHAR(128) NOT NULL,
+    ugc_status_clarification VARCHAR(255) NOT NULL,
+    verified_rating NUMERIC(3, 2) DEFAULT 0.00,
+    review_count INTEGER DEFAULT 0,
+    primary_caution TEXT NOT NULL,
+    data_verified_at DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+-- 5. Semantic review chunks (RAG)
+CREATE TABLE wa.wa_review_embeddings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    college_slug VARCHAR(64) NOT NULL REFERENCES wa.wa_college_facts(slug) ON DELETE CASCADE,
+    review_chunk TEXT NOT NULL,
+    sentiment_rating INTEGER CHECK (sentiment_rating BETWEEN 1 AND 5),
+    embedding public.vector(768), -- Gemini / text-embedding-004
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_wa_reviews_hnsw ON wa.wa_review_embeddings 
+USING hnsw (embedding public.vector_cosine_ops);</pre>
+    </section>
+
+    <!-- SECTION 08: CRISIS SAFETY -->
+    <section id="s8">
+      <div class="shead"><span class="snum">08</span><h2>Hinglish Crisis Safety Protocol &amp; Tele-MANAS</h2></div>
+      <p>Western toxicity models fail to identify Indian exam-stress idioms (e.g., <em>"papa ka sapna tod diya maine"</em>, <em>"kis muh se ghar jau"</em>). The system deploys a decomposed 5-boolean classifier with zero tolerance for false negatives.</p>
+
+      <div class="callout-box accented">
+        <div class="callout-tag">Tele-MANAS Emergency Response Protocol</div>
+        <p><em>“Please suno meri baat. Ek exam ka score aapki poori life ya aapki worth define nahi karta. Agar is waqt bohot overwhelmed lag raha hai, to please kisi professional se baat karo: Call <strong>14416</strong> (ya toll-free <strong>1800-891-4416</strong>) for Govt of India’s 24/7 free and confidential <strong>Tele-MANAS</strong> helpline.”</em></p>
+      </div>
+    </section>
+
+    <!-- SECTION 09: CI/CD EVALS -->
+    <section id="s9">
+      <div class="shead"><span class="snum">09</span><h2>CI/CD, Evaluation &amp; Promptfoo Release Gates</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Evaluation Release Gate</th>
+              <th class="num">Passing Threshold</th>
+              <th>Enforcement Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Grounding Violations Count</strong></td>
+              <td class="num bad">0 (Absolute)</td>
+              <td>Regex scan against Fact Block on golden conversation set.</td>
+            </tr>
+            <tr>
+              <td><strong>Distress Recall on Exam Crisis Set</strong></td>
+              <td class="num good">100% (Zero Error)</td>
+              <td>Every Hinglish test vector must trigger the safety path.</td>
+            </tr>
+            <tr>
+              <td><strong>Scope Escapes</strong></td>
+              <td class="num bad">0</td>
+              <td>Rejects homework, politics, and medical advice.</td>
+            </tr>
+            <tr>
+              <td><strong>Banned Commercial Terms</strong></td>
+              <td class="num bad">0</td>
+              <td>Blocks "100% placement", "guaranteed seats", etc.</td>
+            </tr>
+            <tr>
+              <td><strong>Match Engine Determinism</strong></td>
+              <td class="num">Byte-identical</td>
+              <td>Identical candidate input must yield identical college matches.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 10: OBSERVABILITY & ECONOMICS -->
+    <section id="s10">
+      <div class="shead"><span class="snum">10</span><h2>Observability &amp; Unit Economics</h2></div>
+      
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Scale (Monthly Students)</th>
+              <th class="num">Outbound Messages</th>
+              <th class="num">Meta WhatsApp Cost</th>
+              <th class="num">Cloud &amp; LLM Compute</th>
+              <th class="num">Total Monthly Run-Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pilot (100 Students)</strong></td>
+              <td class="num">~1,100</td>
+              <td class="num good">₹11.50 (Free Tier applies)</td>
+              <td class="num">~₹2,200 (Dev instances)</td>
+              <td class="num"><strong>~₹6,000 INR</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Growth (1,000 Students)</strong></td>
+              <td class="num">~11,000</td>
+              <td class="num">~₹1,150</td>
+              <td class="num">~₹3,500</td>
+              <td class="num"><strong>~₹8,500 INR</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Peak June (10,000 Students)</strong></td>
+              <td class="num">~110,000</td>
+              <td class="num">~₹12,650</td>
+              <td class="num">~₹14,000</td>
+              <td class="num"><strong>~₹28,850 INR</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>At 10,000 monthly students, the complete counseling system operates for under <strong>₹29,000 INR/month (~$350 USD)</strong>, representing exceptional unit-economic viability.</p>
+    </section>
+
+    <!-- SECTION 11: 9-WEEK ROADMAP -->
+    <section id="s11">
+      <div class="shead"><span class="snum">11</span><h2>9-Week Phased Engineering Roadmap (WBS)</h2></div>
+      
+      <figure class="diagram-card">
+        <div class="diagram-frame">
+          <svg viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gantt chart of 9-week engineering roadmap">
+            <g font-family="IBM Plex Sans, sans-serif">
+              <!-- Timeline headers -->
+              <text x="50" y="30" font-family="IBM Plex Mono" font-size="11" fill="#524c45">W1 (Foundations)</text>
+              <text x="220" y="30" font-family="IBM Plex Mono" font-size="11" fill="#524c45">W2–W3 (Zero LLM)</text>
+              <text x="420" y="30" font-family="IBM Plex Mono" font-size="11" fill="#524c45">W4–W5 (Rails)</text>
+              <text x="620" y="30" font-family="IBM Plex Mono" font-size="11" fill="#524c45">W6–W7 (Evals)</text>
+              <text x="770" y="30" font-family="IBM Plex Mono" font-size="11" fill="#524c45">W8–W9 (Pilot)</text>
+
+              <!-- Track A -->
+              <rect x="50" y="50" width="140" height="24" fill="#f5f2ec" stroke="#161413"/>
+              <rect x="200" y="50" width="180" height="24" fill="#f8edea" stroke="#8b2515" stroke-width="1.5"/>
+              <text x="60" y="66" font-size="11">Track A: Core FSM</text>
+
+              <!-- Track B -->
+              <rect x="50" y="86" width="140" height="24" fill="#f5f2ec" stroke="#161413"/>
+              <rect x="200" y="86" width="180" height="24" fill="#f8edea" stroke="#8b2515" stroke-width="1.5"/>
+              <text x="60" y="102" font-size="11">Track B: Data &amp; SQL</text>
+
+              <!-- Track C -->
+              <rect x="390" y="122" width="190" height="24" fill="#f5f2ec" stroke="#161413"/>
+              <rect x="590" y="122" width="150" height="24" fill="#f8edea" stroke="#8b2515" stroke-width="1.5"/>
+              <rect x="750" y="122" width="100" height="24" fill="#235332" stroke="#235332"/>
+              <text x="60" y="138" font-size="11">Track C: Model &amp; Evals</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Figure 4</b>Nine-Week Phased Engineering Work Breakdown Structure.</figcaption>
+      </figure>
+    </section>
+
+    <section id="s12">
+      <div class="shead"><span class="snum">12</span><h2>Implementation Boundary &amp; Faculty Traceability</h2></div>
+      <div class="callout-box green">
+        <div class="callout-tag">Status clarification</div>
+        <p>This TRD is an architecture and test baseline. It describes the intended production system; it does not claim that Meta, WABA, Supabase, QStash, Langfuse, or pilot infrastructure has already been provisioned.</p>
+      </div>
+      <p>This page is the browser version of the downloadable <a href="trd.pdf">TRD PDF</a>. Product behaviour is defined in the <a href="prd.html">PRD</a>; the behavioural fixture is in <a href="conversation.html">conversation.html</a>.</p>
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead><tr><th>Component</th><th>Contract</th><th>Failure behaviour</th></tr></thead>
+          <tbody>
+            <tr><td>Meta webhook</td><td>Signed event and message ID; idempotent acknowledgement</td><td>Reject invalid signature; do not execute</td></tr>
+            <tr><td>QStash worker</td><td>Authenticated batch; ordered session execution</td><td>Retry by message ID; suppress duplicates</td></tr>
+            <tr><td>Fact service</td><td>Fact Block with value, source and <code>updated_at</code></td><td>Return “not verified”; never use model memory</td></tr>
+            <tr><td>Decision adapter</td><td>Structured decision from stage/profile/facts</td><td>Timeout falls back to deterministic template</td></tr>
+            <tr><td>Output validator</td><td>Candidate text plus Fact Block</td><td>Suppress violation and send safe fallback</td></tr>
+            <tr><td>WhatsApp sender</td><td>Validated response and idempotency key</td><td>Retry safely and record provider error</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Release traceability</h3>
+      <div class="table-scroller">
+        <table class="data-table">
+          <thead><tr><th>Requirement</th><th>Primary test</th><th>Release gate</th></tr></thead>
+          <tbody>
+            <tr><td>Signed, idempotent ingestion</td><td>Replay and invalid-signature fixtures</td><td>No duplicate outbound message</td></tr>
+            <tr><td>Four-second debounce</td><td>Ordered burst-message test</td><td>One deterministic execution</td></tr>
+            <tr><td>Stage 4 gate</td><td>College request before stress-test</td><td>No college name emitted</td></tr>
+            <tr><td>Numeric grounding</td><td>Unsupported fee/rank injection</td><td>Candidate blocked; fallback sent</td></tr>
+            <tr><td>Distress pre-emption</td><td>Hinglish crisis corpus</td><td>100% labelled recall target</td></tr>
+            <tr><td>Deterministic matching</td><td>Same profile/fact replay</td><td>Byte-identical result</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Operational signals required</h3>
+      <p>Every execution records a correlation ID, Meta message ID, stage, rail results, fact-block version, model, latency, token usage, grounding result, outbound message ID and failure reason. The minimum dashboards cover webhook latency, duplicate suppression, stale-fact count, blocked-output/fallback rate, distress recall, provider failures and retry exhaustion.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dossier-footer">
+      <p><strong>Campus Critique Engineering &amp; Research Group</strong> · Academic Year 2026–2027</p>
+      <p>Companion Product Requirements Document available at <a href="prd.html" style="color: var(--accent);">prd.html</a>. Conversational simulations available at <a href="conversation.html" style="color: var(--accent);">conversation.html</a>.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

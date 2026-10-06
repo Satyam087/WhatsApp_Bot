@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Critique — Project Documentation & Submission Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fcfbf9;
+      --bg-wash: #f5f2ec;
+      --bg-card: #ffffff;
+      --ink: #161413;
+      --ink2: #524c45;
+      --ink3: #7d756c;
+      --rule: #dfd9cf;
+      --rule2: #eae5dc;
+      --accent: #8b2515;
+      --accent-soft: #f8edea;
+      --green: #235332;
+      
+      --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+      --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+      
+      --page-max: 1060px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 64px 28px 96px 28px;
+    }
+
+    header.masthead {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px 0;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin: 0 0 18px 0;
+      color: var(--ink);
+    }
+
+    .dek {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2.2vw, 1.32rem);
+      line-height: 1.5;
+      color: var(--ink2);
+      margin: 0 0 28px 0;
+      max-width: 72ch;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink3);
+    }
+
+    .meta-bar b {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* Document cards grid */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 28px;
+      margin: 48px 0;
+    }
+
+    .doc-card {
+      border: 1px solid var(--rule);
+      background-color: var(--bg-card);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .doc-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .doc-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .doc-card h2 {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin: 0 0 14px 0;
+      color: var(--ink);
+    }
+
+    .doc-card p {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--ink2);
+      margin: 0 0 24px 0;
+    }
+
+    .doc-meta {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--ink3);
+      border-top: 1px solid var(--rule2);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-cta {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Executive summary */
+    .summary-section {
+      border-top: 1px solid var(--rule);
+      padding-top: 48px;
+      margin-top: 48px;
+    }
+
+    .summary-section h3 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin: 0 0 16px 0;
+    }
+
+    .summary-section p {
+      max-width: 76ch;
+      color: var(--ink2);
+    }
+
+    footer.dossier-footer {
+      border-top: 2px solid var(--ink);
+      padding-top: 28px;
+      margin-top: 64px;
+      font-size: 13px;
+      color: var(--ink3);
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 36px 18px; }
+      .doc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header class="masthead">
+      <p class="eyebrow">Academic Review &amp; Evaluation Portal · CS-499</p>
+      <h1>Campus Critique: WhatsApp Advisory Agent</h1>
+      <p class="dek">Complete documentation suite submitted for faculty evaluation, covering project requirements, technical architecture, and conversational simulation.</p>
+      
+      <div class="meta-bar">
+        <span><b>Project Code:</b> CC-WABA-2026</span>
+        <span><b>Evaluation:</b> Faculty Defense</span>
+        <span><b>Target Deployment:</b> June 2027</span>
+        <span><b>Team:</b> 3 Engineers</span>
+      </div>
+    </header>
+
+    <!-- Document Navigation Cards -->
+    <div class="doc-grid">
+      <!-- PRD Card -->
+      <a href="prd.html" class="doc-card">
+        <div>
+          <span class="doc-tag">Document 01 · Product</span>
+          <h2>Project Requirements Document (PRD)</h2>
+          <p>Indian admission funnel analysis (~13L unplaced aspirants), audit of 8 new-age tech colleges, 3 structural blindspots, user personas, the complete 7-stage conversational model, and DPDP Act compliance.</p>
+        </div>
+        <div class="doc-meta">
+          <span>prd.html</span>
+          <span class="doc-cta">Open PRD &rarr;</span>
+        </div>
+      </a>
+
+      <!-- TRD Card -->
+      <a href="trd.html" class="doc-card">
+        <div>
+          <span class="doc-tag">Document 02 · Engineering</span>
+          <h2>Technical Requirements Document (TRD)</h2>
+          <p>Defence-in-depth architecture, asynchronous webhook ingestion with 4000ms QStash debounce, the 5-Rail Guardrail Engine in TypeScript, deterministic math formulas, and complete PostgreSQL DDL schema.</p>
+        </div>
+        <div class="doc-meta">
+          <span>trd.html</span>
+          <span class="doc-cta">Open TRD &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Executive Report Card -->
+      <a href="report.html" class="doc-card">
+        <div>
+          <span class="doc-tag">Document 03 · Consolidated</span>
+          <h2>Executive Report &amp; Simulation</h2>
+          <p>Consolidated multi-volume dossier featuring the complete 11-turn "Aarav" golden path simulation with execution traces, Tele-MANAS crisis intercept, Promptfoo CI evals, and Meta rate-card unit economics.</p>
+        </div>
+        <div class="doc-meta">
+          <span>report.html</span>
+          <span class="doc-cta">Open Report &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Conversation Walkthrough Card -->
+      <a href="conversation.html" class="doc-card">
+        <div>
+          <span class="doc-tag">Document 04 · Validation</span>
+          <h2>Conversation Walkthrough</h2>
+          <p>Standalone golden-path transcript for Aarav, with stage, rail and decision annotations plus unlisted-college, affordability, crisis and prompt-injection test cases.</p>
+        </div>
+        <div class="doc-meta">
+          <span>conversation.html</span>
+          <span class="doc-cta">Open walkthrough &rarr;</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Summary Section -->
+    <section class="summary-section">
+      <h3>Project Abstract &amp; Thesis</h3>
+      <p>Every year in India, roughly 14.5 lakh students take the JEE Main exam competing for just 67,323 JoSAA seats across IITs, NITs, IIITs, and GFTIs. The remaining ~95% (~13 lakh candidates) must navigate an opaque private education market surrounded by admission consultants who earn ₹20,000–₹60,000 per referral.</p>
+      <p><strong>Campus Critique WhatsApp Bot</strong> is an autonomous conversational decision-support infrastructure engineered with zero admission kickbacks. It enforces an empathetic 7-stage state machine that calculates exact all-India ranks, runs loan affordability stress-tests ($4\times$ household income limits), delivers institutional recommendations with mandatory cautionary caveats, and provides candidates with an admissions audit checklist.</p>
+    </section>
+
+    <footer class="dossier-footer">
+      <p><strong>Campus Critique Engineering &amp; Research Group</strong> · Academic Year 2026–2027</p>
+      <p>Faculty downloads: <a href="prd.pdf" style="color: var(--accent);">PRD PDF</a>, <a href="trd.pdf" style="color: var(--accent);">TRD PDF</a>, and the <a href="conversation.html" style="color: var(--accent);">conversation walkthrough</a>.</p>
+    </footer>
+  </div>
+
+</body>
+</html>
